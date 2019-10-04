@@ -1,0 +1,10 @@
+.error-msg {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    color: #c78f22;
+  }
+  .error-msg .oops {
+    font-size: 1.7rem;
+  }
