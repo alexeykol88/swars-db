@@ -7,6 +7,22 @@ import './random-planet.css';
 
 export default class RandomPlanet extends Component {
 
+    static defaultProps = {
+    updateInterval: 10000
+    }
+
+    static propTypes = {
+      updateInterval: (props, propName, componentName) => {
+        const value = props[propName];
+
+        if ( typeof value === 'number' && !isNaN(value)) {
+          return null;
+        }
+
+        return new TypeError(`${componentName}: ${propName} must be a number`);
+      }
+    };
+
     swapiService = new SwapiService();
 
     state = {
@@ -16,8 +32,9 @@ export default class RandomPlanet extends Component {
     }
 
     componentDidMount() {
+      const {updateInterval} = this.props;
       this.updatePlanet();
-      this.interval = setInterval(this.updatePlanet, 10000);
+      this.interval = setInterval(this.updatePlanet, updateInterval);
     }
 
     componentWillUnmount() {
@@ -65,6 +82,8 @@ export default class RandomPlanet extends Component {
   }
 }
 
+
+
 const PlanetView = ({planet}) => {
 
   const {population, rotationPeriod, diameter, name, id} = planet;
@@ -72,7 +91,7 @@ const PlanetView = ({planet}) => {
   return (
     <React.Fragment>
        <img
-          className="planet-image" src={`https://starwars-visualguide.com/assets/img/planets/${id}.jpg`}/>
+          className="planet-image" src={`https://starwars-visualguide.com/assets/img/planets/${id}.jpg`} alt="Failed to load"/>
         <div>
           <h4>{name}</h4>
           <ul className="list-group list-group-flush">

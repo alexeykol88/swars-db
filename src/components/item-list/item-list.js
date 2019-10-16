@@ -1,14 +1,13 @@
 import React from "react";
 
-
 import './item-list.css';
 
 
 const  ItemList = (props) => {
    const {data, onItemSelected, children: renderLabel} = props;
 
-    const items = data.map((item) => {
-
+    const items = data.map((item, indx) => {
+      if (indx < 5) {
       const { id } = item;
       const label = renderLabel(item);
 
@@ -19,6 +18,9 @@ const  ItemList = (props) => {
         {label}
         </li>
       )
+      } else {
+        return null;
+      }
     });
 
     return (
@@ -26,6 +28,10 @@ const  ItemList = (props) => {
         {items}
       </ul>
     );
+  }
+
+  ItemList.defaultProps = {
+    onItemSelected: () => {}
   }
 
 export default ItemList;

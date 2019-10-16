@@ -7,7 +7,7 @@ import './item-details.css';
 const Record = ( { item, field , label } ) => {
   return (
     <li className="list-group-item">
-              <span className="term">{label}</span>
+              <span className="term">{label}:</span>
               <span>{item[field]}</span>
     </li>
   );
@@ -50,7 +50,9 @@ export default class ItemDetails extends Component {
   }
 
   componentDidUpdate(prevProps) {
-    if (this.props.itemId !== prevProps.itemId) {
+    if (this.props.itemId !== prevProps.itemId || 
+        this.props.getData !== prevProps.getData ||
+        this.props.getImageUrl !== prevProps.getImageUrl) {
       this.updateItem();
     }
   }
